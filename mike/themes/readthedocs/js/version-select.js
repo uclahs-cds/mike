@@ -67,12 +67,19 @@ window.addEventListener("DOMContentLoaded", function() {
 
     var title = document.querySelector("div.wy-side-nav-search");
     title.insertBefore(select, title.querySelector(".icon-home").nextSibling);
+    var linklist = document.createElement("ul");
+    linklist.className = "wy-menu-vertical";
+    title.insertBefore(linklist, select.nextSibling);
 
-    ["development", "release-candidate", "latest"].forEach(function(i) {
+    ["latest", "release-candidate", "development"].forEach(function(i) {
+        var listelem = document.createElement("li");
+        linklist.appendChild(listelem);
+
         var link = document.createElement("a");
+        listelem.appendChild(link);
+
         link.href = "/" + i;
         link.innerText = i;
-        title.insertBefore(link, select.nextSibling);
     });
   });
 });
