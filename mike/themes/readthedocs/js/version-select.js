@@ -55,7 +55,7 @@ window.addEventListener("DOMContentLoaded", function() {
     }).version;
 
     var select = makeSelect(versions.filter(function(i) {
-      return i.version === realVersion || !i.properties || !i.properties.hidden;
+      return i.version === realVersion || i.aliases?.length || !i.properties || !i.properties.hidden;
     }).map(function(i) {
       return {text: i.title, value: i.version,
               selected: i.version === realVersion};
@@ -67,5 +67,12 @@ window.addEventListener("DOMContentLoaded", function() {
 
     var title = document.querySelector("div.wy-side-nav-search");
     title.insertBefore(select, title.querySelector(".icon-home").nextSibling);
+
+    ["development", "release-candidate", "latest"].forEach(function(i) {
+        var link = document.createElement("a");
+        link.href = "/" + i;
+        link.innerText = i;
+        title.insertBefore(link, select.nextSibling);
+    });
   });
 });
